@@ -14,7 +14,7 @@
 	}
 	ul.is-search-results {
 		background: white;
-		max-height: 300px;
+		max-height: 250px;
 		overflow-y: auto;
 		padding: 1rem 0;
 		margin: 0;
@@ -36,7 +36,7 @@
 		<video class="video" muted="muted" loop="loop" autoplay="autoplay" playsinline id="bannerVideo">
 			<source src="<?php the_field("banner_video"); ?>" type="video/mp4">
 		</video>
-		<div class="heroContent">
+		<div class="heroContent py-5">
 			<h1><strong><?php the_field('banner_title'); ?></strong></h1>
             <div class="search-container mt-4">
                 <div class="search-container-title">
