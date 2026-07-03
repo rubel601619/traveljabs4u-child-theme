@@ -298,6 +298,7 @@ createApp({
       remoteCache: new Map(),
       minChars: 2,
       localMatchThreshold: 3,
+	  apiUrl: '/wp-json/wp/v2/destination',
     }
   },
 
@@ -360,7 +361,7 @@ createApp({
         do {
           console.log(`[loadAllDestinations] fetching page ${page}`);
           const response = await axios.get(
-            'http://traveljabs4u.test/wp-json/wp/v2/destination',
+            this.apiUrl,
             {
               params: {
                 _fields: 'id,title,link',
@@ -420,7 +421,7 @@ createApp({
 
       try {
         const response = await axios.get(
-          'http://traveljabs4u.test/wp-json/wp/v2/destination',
+          this.apiUrl,
           {
             params: {
               search: query,
