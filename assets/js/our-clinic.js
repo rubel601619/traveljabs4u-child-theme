@@ -199,11 +199,29 @@
 
   function localMatches(query) {
     if (!query) return allClinics;
-    var q = query.toLowerCase();
+    var q = query.toLowerCase().trim();
+    var words = q.split(/\s+/);
+    var qNoSpace = q.replace(/\s+/g, '');
     return allClinics.filter(function (c) {
-      return c.title.toLowerCase().indexOf(q) !== -1 ||
-             (c.address && c.address.toLowerCase().indexOf(q) !== -1) ||
-             (c.postcode && c.postcode.toLowerCase().indexOf(q) !== -1);
+      var text = (c.title + ' ' + (c.address || '') + ' ' + (c.postcode || '')).toLowerCase();
+      var textNoSpace = text.replace(/\s+/g, '');
+
+      if (words.every(function (word) {
+        return text.indexOf(word) !== -1;
+      })) return true;
+
+      if (textNoSpace.indexOf(qNoSpace) !== -1) return true;
+
+      var textWords = text.split(/\s+/);
+      return words.every(function (word, i) {
+        var nv = word.replace(/[aeiou]/g, '');
+        if (nv.length >= 2) {
+          return textWords.some(function (tw) {
+            return tw.replace(/[aeiou]/g, '').indexOf(nv) !== -1;
+          });
+        }
+        return text.indexOf(word) !== -1;
+      });
     });
   }
 
