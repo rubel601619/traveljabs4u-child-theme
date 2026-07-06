@@ -5,24 +5,39 @@
   var markers = [];
   var infoWindows = [];
   var allClinics = pmcInitialClinics || [];
-  var mapInitRetries = 0;
 
-  function initMap() {
-    if (typeof google === 'undefined' || !google.maps || !google.maps.Map) {
-      mapInitRetries++;
-      if (mapInitRetries < 50) {
-        setTimeout(initMap, 200);
-      }
+  function loadGoogleMaps(callback) {
+    if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
+      callback();
       return;
     }
+    if (!pmcClinicVars.apiKey) return;
+    if (document.querySelector('script[src*="maps.googleapis.com/maps/api"]')) {
+      var check = setInterval(function () {
+        if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
+          clearInterval(check);
+          callback();
+        }
+      }, 200);
+      setTimeout(function () { clearInterval(check); }, 15000);
+      return;
+    }
+    var script = document.createElement('script');
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=' + pmcClinicVars.apiKey;
+    script.async = true;
+    script.onload = callback;
+    document.head.appendChild(script);
+  }
 
-    map = new google.maps.Map(document.getElementById('clinicMap'), {
-      zoom: 10,
-      center: { lat: 51.5074, lng: -0.1278 },
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
+  function initMap() {
+    loadGoogleMaps(function () {
+      map = new google.maps.Map(document.getElementById('clinicMap'), {
+        zoom: 10,
+        center: { lat: 51.5074, lng: -0.1278 },
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+      });
+      addMarkers(allClinics);
     });
-
-    addMarkers(allClinics);
   }
 
   function clearMarkers() {

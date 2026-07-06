@@ -203,10 +203,13 @@ function pmc_clinic_search_where( $where ) {
     return $where;
 }
 
-// 4. Enqueue assets on Our Clinic page
+// 4. Enqueue assets on Our Clinic pages
 add_action( 'wp_enqueue_scripts', 'pmc_enqueue_clinic_assets' );
 function pmc_enqueue_clinic_assets() {
-    if ( ! is_page_template( 'page-templates/our-clinic.php' ) ) {
+    $is_listing = is_page_template( 'page-templates/our-clinic.php' );
+    $is_single  = is_singular( 'clinic' );
+
+    if ( ! $is_listing && ! $is_single ) {
         return;
     }
 
@@ -215,51 +218,53 @@ function pmc_enqueue_clinic_assets() {
         $api_key = defined( 'PMC_GOOGLE_MAPS_API_KEY' ) ? PMC_GOOGLE_MAPS_API_KEY : '';
     }
 
-    wp_enqueue_style( 'clinic-style', get_stylesheet_directory_uri() . '/assets/css/our-clinic.css', [], '1.0' );
+    if ( $is_listing ) {
+        wp_enqueue_style( 'clinic-style', get_stylesheet_directory_uri() . '/assets/css/our-clinic.css', [], '1.0' );
 
-    wp_enqueue_script(
-        'clinic-js',
-        get_stylesheet_directory_uri() . '/assets/js/our-clinic.js',
-        [ 'jquery' ],
-        '1.0',
-        true
-    );
+        wp_enqueue_script(
+            'clinic-js',
+            get_stylesheet_directory_uri() . '/assets/js/our-clinic.js',
+            [ 'jquery' ],
+            '1.0',
+            true
+        );
 
-    wp_localize_script( 'clinic-js', 'pmcClinicVars', [
-        'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-        'nonce'   => wp_create_nonce( 'clinic_search_nonce' ),
-        'hasMap'  => $api_key ? '1' : '0',
-    ] );
+        wp_localize_script( 'clinic-js', 'pmcClinicVars', [
+            'ajaxUrl' => admin_url( 'admin-ajax.php' ),
+            'nonce'   => wp_create_nonce( 'clinic_search_nonce' ),
+            'apiKey'  => $api_key ?: '',
+        ] );
 
-    // Pass initial clinic data to JS
-    $query   = new WP_Query( [
-        'post_type'      => 'clinic',
-        'posts_per_page' => -1,
-        'post_status'    => 'publish',
-        'orderby'        => 'title',
-        'order'          => 'ASC',
-    ] );
-    $clinics = [];
-    if ( $query->have_posts() ) {
-        while ( $query->have_posts() ) {
-            $query->the_post();
-            $lat = get_field( 'clinic_latitude' );
-            $lng = get_field( 'clinic_longitude' );
-            $clinics[] = [
-                'id'        => get_the_ID(),
-                'title'     => get_the_title(),
-                'link'      => get_permalink(),
-                'address'   => get_field( 'clinic_address' ),
-                'postcode'  => get_field( 'clinic_postcode' ),
-                'phone'     => get_field( 'clinic_phone' ),
-                'email'     => get_field( 'clinic_email' ),
-                'latitude'  => $lat ? (float) $lat : null,
-                'longitude' => $lng ? (float) $lng : null,
-                'thumbnail' => get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' ),
-            ];
-            unset( $lat, $lng );
+        // Pass initial clinic data to JS
+        $query   = new WP_Query( [
+            'post_type'      => 'clinic',
+            'posts_per_page' => -1,
+            'post_status'    => 'publish',
+            'orderby'        => 'title',
+            'order'          => 'ASC',
+        ] );
+        $clinics = [];
+        if ( $query->have_posts() ) {
+            while ( $query->have_posts() ) {
+                $query->the_post();
+                $lat = get_field( 'clinic_latitude' );
+                $lng = get_field( 'clinic_longitude' );
+                $clinics[] = [
+                    'id'        => get_the_ID(),
+                    'title'     => get_the_title(),
+                    'link'      => get_permalink(),
+                    'address'   => get_field( 'clinic_address' ),
+                    'postcode'  => get_field( 'clinic_postcode' ),
+                    'phone'     => get_field( 'clinic_phone' ),
+                    'email'     => get_field( 'clinic_email' ),
+                    'latitude'  => $lat ? (float) $lat : null,
+                    'longitude' => $lng ? (float) $lng : null,
+                    'thumbnail' => get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' ),
+                ];
+                unset( $lat, $lng );
+            }
+            wp_reset_postdata();
         }
-        wp_reset_postdata();
+        wp_localize_script( 'clinic-js', 'pmcInitialClinics', $clinics );
     }
-    wp_localize_script( 'clinic-js', 'pmcInitialClinics', $clinics );
 }
