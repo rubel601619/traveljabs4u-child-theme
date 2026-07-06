@@ -96,6 +96,7 @@
   margin: 0 0 2px;
   font-size: 13px;
   color: #555;
+  line-height: 20px;
 }
 
 .clinic-info .clinic-phone {
@@ -150,4 +151,7 @@
   #clinicList {
     max-height: 400px;
   }
+}
+.clinic-postcode{
+  margin-bottom: 8px;
 }
