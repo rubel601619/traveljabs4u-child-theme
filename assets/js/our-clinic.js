@@ -4,14 +4,7 @@
   var map = null;
   var markers = [];
   var infoWindows = [];
-  var debounceTimer = null;
   var allClinics = pmcInitialClinics || [];
-  var remoteResults = [];
-  var usingRemote = false;
-  var remoteCache = {};
-  var currentXhr = null;
-  var minChars = 2;
-  var localMatchThreshold = 3;
   var mapInitRetries = 0;
 
   function initMap() {
@@ -129,13 +122,8 @@
     });
   }
 
-  function renderAndMap(clinics) {
-    renderClinicList(clinics);
-    addMarkers(clinics);
-  }
-
   function localMatches(query) {
-    if (!query) return [];
+    if (!query) return allClinics;
     var q = query.toLowerCase();
     return allClinics.filter(function (c) {
       return c.title.toLowerCase().indexOf(q) !== -1 ||
@@ -144,76 +132,15 @@
     });
   }
 
-  function searchRemote(query) {
-    if (remoteCache[query]) {
-      remoteResults = remoteCache[query];
-      usingRemote = true;
-      renderAndMap(remoteResults);
-      return;
-    }
-
-    if (currentXhr) {
-      currentXhr.abort();
-    }
-
-    currentXhr = $.ajax({
-      url: pmcClinicVars.ajaxUrl,
-      type: 'POST',
-      data: {
-        action: 'search_clinics',
-        search: query,
-        nonce: pmcClinicVars.nonce,
-      },
-      success: function (clinics) {
-        remoteResults = clinics;
-        remoteCache[query] = clinics;
-        usingRemote = true;
-        renderAndMap(clinics);
-      },
-    });
-  }
-
-  function doSearch(query) {
-    if (currentXhr) {
-      currentXhr.abort();
-      currentXhr = null;
-    }
-
-    if (query.length < minChars) {
-      usingRemote = false;
-      remoteResults = [];
-      renderAndMap(allClinics);
-      return;
-    }
-
-    usingRemote = false;
-    var local = localMatches(query);
-
-    if (local.length >= localMatchThreshold) {
-      renderAndMap(local);
-    } else {
-      searchRemote(query);
-    }
-  }
-
   $(document).ready(function () {
     renderClinicList(allClinics);
     initMap();
 
     $('#clinicSearch').on('input', function () {
-      clearTimeout(debounceTimer);
       var query = $(this).val().trim();
-      debounceTimer = setTimeout(function () {
-        doSearch(query);
-      }, 300);
-    });
-
-    $('#clinicSearch').on('keydown', function (e) {
-      if (e.keyCode === 13) {
-        e.preventDefault();
-        clearTimeout(debounceTimer);
-        doSearch($(this).val().trim());
-      }
+      var matches = localMatches(query);
+      renderClinicList(matches);
+      addMarkers(matches);
     });
   });
 
