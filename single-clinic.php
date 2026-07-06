@@ -1,5 +1,15 @@
 <?php get_header(); ?>
 
+<style>
+	h2, h3,h4,h5,h6{
+		font-weight: 500 !important;
+		color: #212629 !important;
+	}
+	ul{
+		text-align: left !important;
+	}
+</style>
+
 <section class="pageBanner vert-mid" style="background-image: url('<?= get_the_post_thumbnail_url(); ?>')">
 	<div class="container">
 		<h1 class="pageBannerTitle"><?php the_title(); ?></h1>
