@@ -34,11 +34,7 @@
 						<?php if ( get_field( 'clinic_postcode' ) ) : ?>
 							<p><?php the_field( 'clinic_postcode' ); ?></p>
 						<?php endif; ?>
-						<h3><i class="fa-solid fa-phone"></i> Phone</h3>
-						<p><a href="tel:<?php the_field( 'clinic_phone' ); ?>"><?php the_field( 'clinic_phone' ); ?></a></p>
-						<h3><i class="fa-solid fa-envelope"></i> Email</h3>
-						<p><a href="mailto:<?php the_field( 'clinic_email' ); ?>"><?php the_field( 'clinic_email' ); ?></a></p>
-					</div>
+				</div>
 					<div class="col-lg-6">
 						<?php
 						$lat = get_field( 'clinic_latitude' );

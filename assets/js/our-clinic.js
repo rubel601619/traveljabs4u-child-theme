@@ -131,7 +131,6 @@
         '<strong>' + c.title + '</strong><br>' +
         (c.address ? c.address + '<br>' : '') +
         (c.postcode ? c.postcode + '<br>' : '') +
-        (c.phone ? '<a href="tel:' + c.phone + '">' + c.phone + '</a><br>' : '') +
         '<a href="' + c.link + '">View details</a>' +
         '</div>';
 
