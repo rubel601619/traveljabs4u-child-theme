@@ -5,6 +5,57 @@
   var markers = [];
   var infoWindows = [];
   var allClinics = pmcInitialClinics || [];
+  var userLocation = { lat: 51.5074, lng: -0.1278 };
+
+  function haversineDistance(lat1, lng1, lat2, lng2) {
+    var R = 6371;
+    var dLat = (lat2 - lat1) * Math.PI / 180;
+    var dLng = (lng2 - lng1) * Math.PI / 180;
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+            Math.sin(dLng / 2) * Math.sin(dLng / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  function getUserLocation(callback) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function (pos) {
+        userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+        if (callback) callback(userLocation);
+      }, function () {
+        fetchLocationByIP(callback);
+      });
+    } else {
+      fetchLocationByIP(callback);
+    }
+  }
+
+  function fetchLocationByIP(callback) {
+    $.getJSON('https://ipinfo.io/json').done(function (data) {
+      if (data && data.loc) {
+        var parts = data.loc.split(',');
+        var lat = parseFloat(parts[0]);
+        var lng = parseFloat(parts[1]);
+        if (!isNaN(lat) && !isNaN(lng)) {
+          userLocation = { lat: lat, lng: lng };
+          if (callback) callback(userLocation);
+        }
+      }
+    });
+  }
+
+  function attachDistances(clinics) {
+    if (!userLocation) return;
+    for (var i = 0; i < clinics.length; i++) {
+      var c = clinics[i];
+      if (c.latitude != null && c.longitude != null && !isNaN(c.latitude) && !isNaN(c.longitude)) {
+        c.distance = haversineDistance(userLocation.lat, userLocation.lng, c.latitude, c.longitude);
+      } else {
+        c.distance = null;
+      }
+    }
+  }
 
   function loadGoogleMaps(callback) {
     if (typeof google !== 'undefined' && google.maps && google.maps.Map) {
@@ -111,6 +162,8 @@
       return;
     }
 
+    attachDistances(clinics);
+
     var html = '';
     for (var i = 0; i < clinics.length; i++) {
       var c = clinics[i];
@@ -121,8 +174,16 @@
       html += '<div class="clinic-info">';
       html += '<h3><a href="' + c.link + '">' + c.title + '</a></h3>';
       if (c.address) html += '<p class="clinic-address">' + c.address + '</p>';
-      if (c.postcode) html += '<p class="clinic-postcode">' + c.postcode + '</p>';
-      if (c.phone) html += '<p class="clinic-phone"><a href="tel:' + c.phone + '">' + c.phone + '</a></p>';
+      if (c.postcode) {
+        html += '<p class="clinic-postcode">' + c.postcode;
+        if (c.distance != null) {
+          html += '<span class="clinic-distance">' + c.distance.toFixed(1) + ' km</span>';
+        }
+        html += '</p>';
+      } else if (c.distance != null) {
+        html += '<p class="clinic-postcode"><span class="clinic-distance">' + c.distance.toFixed(1) + ' km</span></p>';
+      }
+      
       html += '</div></div>';
     }
     $list.html(html);
@@ -147,15 +208,31 @@
     });
   }
 
+  function reRender() {
+    var query = $('#clinicSearch').val().trim();
+    var matches = localMatches(query);
+    renderClinicList(matches);
+    addMarkers(matches);
+  }
+
   $(document).ready(function () {
     renderClinicList(allClinics);
     initMap();
 
+    function requestLocation() {
+      getUserLocation(function () {
+        reRender();
+      });
+    }
+
+    requestLocation();
+
+    $('#clinicSearch').on('focus', function () {
+      requestLocation();
+    });
+
     $('#clinicSearch').on('input', function () {
-      var query = $(this).val().trim();
-      var matches = localMatches(query);
-      renderClinicList(matches);
-      addMarkers(matches);
+      reRender();
     });
   });
 
