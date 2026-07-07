@@ -62,6 +62,9 @@
 					<?php if ( get_field( 'clinic_postcode' ) ) : ?>
 						<p class="mb-0"><strong>Post Code :</strong> <?php the_field( 'clinic_postcode' ); ?></p>
 					<?php endif; ?>
+					<?php if ( get_field( 'clinic_phone' ) ) : ?>
+						<p class="mb-0 mt-2"><i class="fa-solid fa-phone"></i> <a href="tel:<?php the_field( 'clinic_phone' ); ?>"><?php the_field( 'clinic_phone' ); ?></a></p>
+					<?php endif; ?>
 
 				</div>
 				<div class="bg-white p-3 border mt-4">

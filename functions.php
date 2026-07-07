@@ -88,6 +88,12 @@ function pmc_register_clinic_acf_fields() {
                 'required'     => 1,
             ],
             [
+                'key'          => 'field_clinic_phone',
+                'label'        => 'Phone',
+                'name'         => 'clinic_phone',
+                'type'         => 'text',
+            ],
+            [
                 'key'          => 'field_clinic_latitude',
                 'label'        => 'Latitude',
                 'name'         => 'clinic_latitude',
@@ -158,6 +164,7 @@ function pmc_ajax_search_clinics() {
                 'link'      => get_permalink(),
                 'address'   => get_field( 'clinic_address' ),
                 'postcode'  => get_field( 'clinic_postcode' ),
+                'phone'     => get_field( 'clinic_phone' ),
                 'latitude'  => $lat ? (float) $lat : null,
                 'longitude' => $lng ? (float) $lng : null,
                 'thumbnail' => get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' ),
@@ -239,6 +246,7 @@ function pmc_enqueue_clinic_assets() {
                     'link'      => get_permalink(),
                     'address'   => get_field( 'clinic_address' ),
                     'postcode'  => get_field( 'clinic_postcode' ),
+                    'phone'     => get_field( 'clinic_phone' ),
                     'latitude'  => $lat ? (float) $lat : null,
                     'longitude' => $lng ? (float) $lng : null,
                     'thumbnail' => get_the_post_thumbnail_url( get_the_ID(), 'thumbnail' ),
