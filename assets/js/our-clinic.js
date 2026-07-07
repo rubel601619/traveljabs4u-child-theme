@@ -209,27 +209,41 @@
     var q = query.toLowerCase().trim();
     var words = q.split(/\s+/);
     var qNoSpace = q.replace(/\s+/g, '');
-    return allClinics.filter(function (c) {
-      var text = (c.title + ' ' + (c.address || '') + ' ' + (c.postcode || '')).toLowerCase();
+
+    function clinicText(c) {
+      return (c.title + ' ' + (c.address || '') + ' ' + (c.postcode || '') + ' ' + (c.content || '')).toLowerCase();
+    }
+
+    function matchAll(c) {
+      var text = clinicText(c);
       var textNoSpace = text.replace(/\s+/g, '');
-
-      if (words.every(function (word) {
-        return text.indexOf(word) !== -1;
-      })) return true;
-
+      if (words.every(function (w) { return text.indexOf(w) !== -1; })) return true;
       if (textNoSpace.indexOf(qNoSpace) !== -1) return true;
-
       var textWords = text.split(/\s+/);
-      return words.every(function (word, i) {
-        var nv = word.replace(/[aeiou]/g, '');
+      return words.every(function (w) {
+        var nv = w.replace(/[aeiou]/g, '');
         if (nv.length >= 2) {
-          return textWords.some(function (tw) {
-            return tw.replace(/[aeiou]/g, '').indexOf(nv) !== -1;
-          });
+          return textWords.some(function (tw) { return tw.replace(/[aeiou]/g, '').indexOf(nv) !== -1; });
         }
-        return text.indexOf(word) !== -1;
+        return text.indexOf(w) !== -1;
       });
+    }
+
+    var results = allClinics.filter(matchAll);
+    if (results.length > 0) return results;
+
+    results = allClinics.filter(function (c) {
+      var text = clinicText(c);
+      return words.some(function (w) { return text.indexOf(w) !== -1; });
     });
+    if (results.length > 0) return results;
+
+    attachDistances(allClinics);
+    return allClinics.slice().sort(function (a, b) {
+      var dA = a.distance != null ? a.distance : Infinity;
+      var dB = b.distance != null ? b.distance : Infinity;
+      return dA - dB;
+    }).slice(0, 5);
   }
 
   function reRender() {
