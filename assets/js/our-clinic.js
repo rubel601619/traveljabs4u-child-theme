@@ -163,9 +163,15 @@
 
     attachDistances(clinics);
 
+    var sorted = clinics.slice().sort(function (a, b) {
+      var dA = a.distance != null ? a.distance : Infinity;
+      var dB = b.distance != null ? b.distance : Infinity;
+      return dA - dB;
+    });
+
     var html = '';
-    for (var i = 0; i < clinics.length; i++) {
-      var c = clinics[i];
+    for (var i = 0; i < sorted.length; i++) {
+      var c = sorted[i];
       html += '<div class="clinic-item" data-lat="' + c.latitude + '" data-lng="' + c.longitude + '">';
       if (c.thumbnail) {
         html += '<div class="clinic-thumb"><img src="' + c.thumbnail + '" alt="' + c.title + '"></div>';
