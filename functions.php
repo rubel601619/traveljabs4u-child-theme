@@ -260,3 +260,10 @@ function pmc_enqueue_clinic_assets() {
         wp_localize_script( 'clinic-js', 'pmcInitialClinics', $clinics );
     }
 }
+
+
+add_action( 'after_setup_theme', 'pmc_child_theme_setup' );
+function pmc_child_theme_setup() {
+    // Add support for title tag
+    add_theme_support( 'title-tag' );
+}
