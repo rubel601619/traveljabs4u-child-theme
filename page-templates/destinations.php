@@ -90,24 +90,40 @@ $the_query = new WP_Query( $args );
 			bottom: 0;
 		}
 	}
+
+	.form-bg{
+		background: linear-gradient(45deg, #dcefd8 0%, #dbeafc 100%);
+		transition: background 0.3s ease-in-out;
+	}
+	.form-bg:has(input:focus) {
+		background: linear-gradient(45deg, #dcefd8 0%, #dbeafc 50%);
+	}
 	.destination-search-wrap {
 		margin-bottom: 1.5rem;
 	}
 	.destination-search-form {
 		display: flex;
-		gap: 8px;
 		max-width: 500px;
+		max-width: 500px;
+		margin-inline: auto;
+		background: white;
+		border-radius: 10px;
+		padding: 4px;
+		border: 2px solid #7ecb2a;
+	}
+	.destination-search-form:has(input:focus) {
+		border-color: #3871c1;
 	}
 	.destination-search-form input {
 		flex: 1;
 		padding: 10px 14px;
-		border: 2px solid #e0e0e0;
+		border: none;
+		box-shadow: none;
 		border-radius: 6px;
 		font-size: 14px;
 	}
 	.destination-search-form input:focus {
 		outline: none;
-		border-color: #7ecb2a;
 	}
 	.destination-search-form button {
 		padding: 10px 20px;
@@ -124,7 +140,7 @@ $the_query = new WP_Query( $args );
 	}
 	.destination-clear-btn {
 		display: inline-block;
-		padding: 10px 16px;
+		padding: 10px 17px;
 		color: #666;
 		text-decoration: none;
 		font-size: 14px;
@@ -165,34 +181,54 @@ $the_query = new WP_Query( $args );
 		color: #666;
 		margin-bottom: 0.5rem;
 	}
+	.heac-bg{
+        background:radial-gradient(circle at 85% 55%, rgba(14, 138, 203, 0.08), transparent 30%),
+		linear-gradient(135deg, #f8fcff 0%, #eef9fb 100%)
+    }
+    .custom-badge{
+        background-color: #e8f8ef;
+        color: #078743;
+    }
 </style>
 
-<section class="pageBanner vert-mid" style="background-image: url('<?= get_the_post_thumbnail_url(); ?>')">
-	<div class="container">
-		<h1 class="pageBannerTitle"><?php the_title(); ?></h1>
-		<?php
-		if ( function_exists('yoast_breadcrumb') ) {
-		  yoast_breadcrumb( '<p id="breadcrumbs">','</p>' );
-		}
-		?>
+<section class="clearfix heac-bg py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <div class="text-start">
+                    <h1 class="fw-bold text-dark my-3">What Travel <span style="color: #08a64f">Vaccines</span><br> Do I <span style="color: #08a64f">Need?</span></h1>
+                    <p>
+                        Find out exactly which travel vaccines and jabs you need for your trip. Explore the most popular destinations to see the recommended vaccinations and health advice, then book your appointment at a travel clinic near you.
+                    </p>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center">
+                <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/client-map.png" class="w-100" style="max-width: 430px;" alt="Our Clinic">
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="clearfix form-bg">
+	<div class="destination-search-wrap py-4 px-3 rounded-3">
+		<form class="destination-search-form" method="get" action="">
+			<input type="text" name="destination_search" value="<?php echo esc_attr( $search ); ?>" placeholder="Search destinations..." autocomplete="off">
+			
+			<?php if ( $search ) : ?>
+				<a href="<?php echo esc_url( get_permalink() ); ?>" class="destination-clear-btn"><i class="fa-solid fa-times"></i></a>
+			<?php endif; ?>
+
+			<button type="submit"><i class="fa-solid fa-search"></i> Search</button>
+			
+		</form>
 	</div>
 </section>
 
 <section class="clearfix py-5">
-	<div class="container py-lg-4">
-
-		<div class="destination-search-wrap">
-			<form class="destination-search-form" method="get" action="">
-				<input type="text" name="destination_search" value="<?php echo esc_attr( $search ); ?>" placeholder="Search destinations..." autocomplete="off">
-				<button type="submit"><i class="fa-solid fa-search"></i> Search</button>
-				<?php if ( $search ) : ?>
-					<a href="<?php echo esc_url( get_permalink() ); ?>" class="destination-clear-btn"><i class="fa-solid fa-times"></i> Clear</a>
-				<?php endif; ?>
-			</form>
-		</div>
+	<div class="container">
 
 		<?php if ( $search ) : ?>
-			<p class="destination-result-count">
+			<p class="destination-result-count mb-3">
 				<?php printf( __( 'Showing %d result(s) for "%s"', 'textdomain' ), $the_query->found_posts, esc_html( $search ) ); ?>
 			</p>
 		<?php endif; ?>

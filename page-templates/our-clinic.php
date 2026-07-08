@@ -33,12 +33,6 @@ get_header();
                 <img src="<?php echo get_stylesheet_directory_uri(); ?>/assets/img/client-map.png" class="w-100" style="max-width: 430px;" alt="Our Clinic">
             </div>
         </div>
-        
-        
-        <div class="row">
-            <div class="col-lg-6"></div>
-            <div class="col-lg-6"></div>
-        </div>
     </div>
 </section>
 
