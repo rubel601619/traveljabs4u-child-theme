@@ -29,6 +29,34 @@
 			}
 		}
 	}
+	.heroBanner{
+		height: auto !important;
+		min-height: 550px;
+	}
+	a.custom-booking-link{
+		background: #7ecb2a;
+		color: #fff;
+		padding: 12px 25px;
+		border-radius: 5px;
+		text-decoration: none;
+		font-weight: bold;
+		transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+		&:hover{
+			background: #3871c1 !important;
+			color: #fff;
+			span{
+				color: #fff;
+			}
+		}
+	}
+	.serviceColumn{
+		height: 100%;
+	}
+	@media(min-width: 992px){
+		.serviceColumns{
+			margin-top: -40px;
+		}
+	}
 </style>
 
 <span class="homePage">
@@ -78,6 +106,11 @@
 					</ul>
 				</div>
             </div>
+			<p class="pt-5 d-lg-none">
+				<a href="<?php echo esc_url( home_url( '/travel-vaccinations-near-me/' ) ); ?>" class="custom-booking-link">
+					<span>BOOK VACCINATIONS</span>
+				</a>
+			</p>
 		</div>
 	</div>
 	<section class="nopad">
@@ -298,7 +331,7 @@ createApp({
       remoteCache: new Map(),
       minChars: 2,
       localMatchThreshold: 3,
-	  apiUrl: 'https://traveljabs4u.co.uk/wp-json/wp/v2/destination',
+	  apiUrl: '/wp-json/wp/v2/destination',
     }
   },
 
