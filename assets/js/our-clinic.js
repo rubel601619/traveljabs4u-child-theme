@@ -270,6 +270,12 @@
     });
 
     $('#clinicSearch').on('input', function () {
+      if (window.innerWidth >= 992) {
+        reRender();
+      }
+    });
+
+    $('#clinicSearchBtn').on('click', function () {
       reRender();
     });
   });

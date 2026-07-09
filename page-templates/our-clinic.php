@@ -6,11 +6,42 @@ get_header();
 <style>
     .heac-bg{
         background:radial-gradient(circle at 85% 55%, rgba(14, 138, 203, 0.08), transparent 30%),
-    linear-gradient(135deg, #f8fcff 0%, #eef9fb 100%)
+        linear-gradient(135deg, #f8fcff 0%, #eef9fb 100%)
     }
     .custom-badge{
         background-color: #e8f8ef;
         color: #078743;
+    }
+    .clinic-search-wrap {
+        display: flex;
+        gap: 8px;
+        margin-bottom: 20px;
+    }
+    .clinic-search-wrap .clinic-search-input {
+        flex: 1;
+        margin-bottom: 0px;
+    }
+    .clinic-search-btn {
+        display: none;
+        padding: 12px 18px;
+        background: #0073aa;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+        transition: background 0.2s;
+    }
+    .clinic-search-btn:hover {
+        background: #005a8c;
+    }
+    @media (max-width: 991px) {
+        .clinic-search-btn {
+            display: block;
+        }
+    }
+    .clinic-info{
+        text-align: left;
     }
 </style>
 
@@ -40,7 +71,10 @@ get_header();
     <div class="container">
         <div class="clinic-layout">
             <div class="clinic-sidebar">
-                <input type="text" id="clinicSearch" class="clinic-search-input" placeholder="Search clinics by name, address..." autocomplete="off">
+                <div class="clinic-search-wrap">
+                    <input type="text" id="clinicSearch" class="clinic-search-input" placeholder="Search clinics by name, address..." autocomplete="off">
+                    <button type="button" id="clinicSearchBtn" class="clinic-search-btn">Submit</button>
+                </div>
                 <div id="clinicList"></div>
             </div>
             <div class="clinic-map-wrap">
