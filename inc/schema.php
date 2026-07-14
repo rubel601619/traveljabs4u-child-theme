@@ -46,6 +46,105 @@ add_action( 'init', function () {
 } );
 
 /**
+ * Add a "Post type" column to the Schema list table.
+ *
+ * @param array $columns
+ * @return array
+ */
+add_filter( 'manage_edit-schema_columns', function ( $columns ) {
+
+    $new = array();
+
+    foreach ( $columns as $key => $label ) {
+        $new[ $key ] = $label;
+        if ( 'title' === $key ) {
+            $new['schema_post_type'] = 'Post type';
+        }
+    }
+
+    if ( ! isset( $new['schema_post_type'] ) ) {
+        $new['schema_post_type'] = 'Post type';
+    }
+
+    return $new;
+} );
+
+/**
+ * Render the "Post type" column content.
+ *
+ * @param string $column
+ * @param int    $post_id
+ */
+add_action( 'manage_schema_posts_custom_column', function ( $column, $post_id ) {
+
+    if ( 'schema_post_type' !== $column ) {
+        return;
+    }
+
+    $post_type = get_post_meta( $post_id, '_schema_post_type', true );
+    $target_id = get_post_meta( $post_id, '_schema_post_id', true );
+
+    if ( 'front' === $post_type ) {
+        echo 'Front Page / Home Page';
+        return;
+    }
+
+    $obj = get_post_type_object( $post_type );
+
+    if ( ! $obj ) {
+        echo esc_html( $post_type );
+        return;
+    }
+
+    $label = $obj->labels->singular_name;
+
+    if ( $target_id && 'front' !== $target_id ) {
+        $target = get_post( (int) $target_id );
+        if ( $target ) {
+            $edit_link = get_edit_post_link( $target->ID );
+            $title     = $target->post_title ? $target->post_title : '(no title #' . $target->ID . ')';
+            echo esc_html( $label ) . ': ';
+            if ( $edit_link ) {
+                echo '<a href="' . esc_url( $edit_link ) . '">' . esc_html( $title ) . '</a>';
+            } else {
+                echo esc_html( $title );
+            }
+            return;
+        }
+    }
+
+    echo esc_html( $label );
+}, 10, 2 );
+
+/**
+ * Register the "Post type" column as sortable.
+ *
+ * @param array $columns
+ * @return array
+ */
+add_filter( 'manage_edit-schema_sortable_columns', function ( $columns ) {
+    $columns['schema_post_type'] = 'schema_post_type';
+    return $columns;
+} );
+
+/**
+ * Handle sorting by the "Post type" column.
+ *
+ * @param WP_Query $query
+ */
+add_action( 'pre_get_posts', function ( $query ) {
+
+    if ( ! is_admin() || ! $query->is_main_query() ) {
+        return;
+    }
+
+    if ( 'schema_post_type' === $query->get( 'orderby' ) ) {
+        $query->set( 'meta_key', '_schema_post_type' );
+        $query->set( 'orderby', 'meta_value' );
+    }
+} );
+
+/**
  * Register the meta box for target + schema JSON.
  */
 add_action( 'add_meta_boxes', function () {
