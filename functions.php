@@ -4,6 +4,9 @@
  *
  * (Please see https://developer.wordpress.org/themes/advanced-topics/child-themes/#how-to-create-a-child-theme)
  */
+
+define( 'CHILD_THEME_DIR', get_stylesheet_directory() );
+
 add_action( 'wp_enqueue_scripts', 'pharmacy_mentor_child_enqueue_styles' );
 function pharmacy_mentor_child_enqueue_styles() {
     wp_enqueue_style( 'parent-style', get_template_directory_uri() . '/style.css' );
@@ -267,3 +270,11 @@ function pmc_child_theme_setup() {
     // Add support for title tag
     add_theme_support( 'title-tag' );
 }
+
+
+$schema_file = CHILD_THEME_DIR . '/inc/schema.php';
+
+if ( file_exists( $schema_file ) ) {
+    require_once $schema_file;
+}
+
