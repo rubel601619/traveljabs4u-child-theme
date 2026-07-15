@@ -331,7 +331,7 @@ createApp({
       remoteCache: new Map(),
       minChars: 2,
       localMatchThreshold: 3,
-	  apiUrl: 'https://traveljabs4u.co.uk/wp-json/wp/v2/destination',
+	  apiUrl: '/wp-json/wp/v2/destination',
     }
   },
 
