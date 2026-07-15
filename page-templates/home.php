@@ -343,6 +343,23 @@
 		</div>
 	</section>
 
+	<section class="cleearfix py-5 bg-light" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
+		<div class="container py-lg-5">
+			<div class="row g-3 justify-content-center">
+				
+				<div class="col-md-6 text-center">
+					<h2 class="custom-title">Find a Travel Clinic Near You</h2>
+					<p class="mt-3 mb-4">TravelJabs4U lists trusted travel vaccination clinics and travel health services across the UK. Browse clinics to check the vaccines they offer, view opening details and book your appointment.</p>
+					<p>
+						<a href="<?php echo esc_url( home_url( '/our-clinics/' ) ); ?>" class="custom-button-primary">
+							Browse All Clinics
+						</a>
+					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
 	<section class="marg-40" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
 		<div class="title-header center-title-header text-center">
 			<?php the_field('blog_content'); ?>
