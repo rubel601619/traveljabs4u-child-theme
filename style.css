@@ -9,3 +9,53 @@ This is the child theme for Pharmacy Mentor theme, generated with Generate Child
 
 (optional values you can add: Theme URI, Author URI, License, License URI, Tags, Text Domain)
 */
+
+.custom-button-outline-primary{
+    display: inline-block;
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border-radius: 200px;
+    color: #7ecb2a;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    border: 2px solid #7ecb2a;
+    transition: background-color .25s ease-in-out, color .25s ease-in-out;
+    &:hover{
+        background-color: hsl(89, 66%, 40%);
+        color: white !important;
+    }
+}
+.custom-button-primary{
+    display: inline-block;
+    padding: .5rem 1rem;
+    background-color: #7ecb2a;
+    border-radius: 200px;
+    color: white;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    border: 2px solid #7ecb2a;
+    transition: background-color .25s ease-in-out, color .25s ease-in-out;
+    &:hover{
+        background-color: hsl(89, 66%, 40%);
+        color: white !important;
+    }
+}
+
+.custom-button-outline-secondary{
+    display: inline-block;
+    padding: .5rem 1rem;
+    background-color: transparent;
+    border-radius: 200px;
+    color: #1E73BE;
+    font-weight: 500;
+    font-size: 14px;
+    text-decoration: none;
+    border: 2px solid #1E73BE;
+    transition: background-color .25s ease-in-out, color .25s ease-in-out;
+    &:hover{
+        background-color: #1E73BE;
+        color: white !important;
+    }
+}

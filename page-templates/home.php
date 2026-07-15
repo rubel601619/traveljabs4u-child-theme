@@ -57,6 +57,9 @@
 			margin-top: -40px;
 		}
 	}
+	.text-theme-secondary{
+		color: #7ecb2a;
+	}
 </style>
 
 <span class="homePage">
@@ -65,7 +68,7 @@
 			<source src="<?php the_field("banner_video"); ?>" type="video/mp4">
 		</video>
 		<div class="heroContent py-5">
-			<h1><strong><?php the_field('banner_title'); ?></strong></h1>
+			<div class="fs-1"><strong><?php the_field('banner_title'); ?></strong></div>
             <div class="search-container mt-4">
                 <div class="search-container-title">
                     <?php the_field('banner_content'); ?>
@@ -149,6 +152,32 @@
 			</div>
 		</div>
 	</section>
+
+	<section class="cleearfix py-5" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
+		<div class="container py-lg-5">
+			<div class="row g-3 align-items-center">
+				<div class="col-md-6">
+					<h1><span class="fs-4 text-theme-secondary">Travel Vaccinations &amp; Travel</span><br> Health Clinics in the UK</h1>
+					<p class="mt-4 mb-5">Find a trusted clinic near you, check the vaccines recommended for your destination, and book a travel health appointment online.</p>
+
+					<div class="d-flex gap-3">
+						<a href="<?php echo esc_url(home_url('/our-clinics/'));?>" class="custom-button-outline-secondary">Find a Clinic Near You</a>
+						<a href="<?php echo esc_url(home_url('/travel-vaccinations-by-destination/'));?>" class="custom-button-primary">Check Vaccines by Destination</a>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<img
+						src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/travel-vaccinations-travel-health-clinics-in-the-uk.webp' ); ?>"
+						alt="Travel Vaccinations Travel Health Clinics in the UK"
+						class="w-100 mx-auto d-block"
+						style="max-width: 500px;"
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
 	<section>
 		<div class="container marg-40" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
 			<div class="title-header center-title-header text-center">
@@ -263,7 +292,7 @@
 				  
 					$args = array(
 					   'post_type' => 'post',
-					   'posts_per_page' => '-1'
+					   'posts_per_page' => '3'
 					 );
 					 
 					$the_query = new WP_Query( $args );
