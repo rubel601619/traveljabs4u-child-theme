@@ -59,3 +59,16 @@ This is the child theme for Pharmacy Mentor theme, generated with Generate Child
         color: white !important;
     }
 }
+
+
+/* custom title */
+
+.custom-title {
+    background: linear-gradient(right, #7ecb2a, #3871c1);
+    background: -webkit-linear-gradient(right, #7ecb2a, #3871c1);
+    background: -o-linear-gradient(right, #7ecb2a, #3871c1);
+    text-fill-color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+}

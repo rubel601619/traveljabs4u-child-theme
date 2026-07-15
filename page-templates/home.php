@@ -190,6 +190,67 @@
             ?>
 		</div>
 	</section>
+
+
+	<section class="cleearfix py-5" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
+		<div class="container py-lg-5">
+			<div class="row g-3 align-items-center">
+				
+				<div class="col-md-6">
+					<img
+						src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/travel-vaccination-made-simple.jpg' ); ?>"
+						alt="Travel Vaccinations Made Simple"
+						class="w-100 mx-auto d-block"
+						style="max-width: 500px;"
+					>
+				</div>
+				<div class="col-md-6">
+					<h2 class="custom-title">Travel Vaccinations Made Simple</h2>
+					<p>Travel vaccinations help protect you against diseases that are common in many parts of the world but rare in the UK, such as typhoid, hepatitis A, yellow fever and rabies. The vaccines that may be advised depend on where you are going, how long you are staying, what you will be doing and your medical history. TravelJabs4U helps you check the recommended vaccines for your destination, compare prices and book an appointment at a trusted travel health clinic near you.</p>
+					<p>It is best to seek travel-health advice at least four to six weeks before departure, as some vaccines are given as a course over several weeks or need time to take full effect. If you are travelling sooner, it is still worth contacting a travel-health professional, as useful advice, vaccination or other preventive measures may still be available.</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	<section class="cleearfix py-5" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
+		<div class="container py-lg-5">
+			<div class="row g-3 align-items-center">
+				
+				<div class="col-md-6">
+					<h2 class="custom-title">Check Vaccines by Destination</h2>
+					<p>Every country carries different health risks. Choose your destination to see the vaccines that may be recommended or required before you travel, along with malaria advice and other travel health guidance.</p>
+					<ul class="destination-links">
+						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-india-4/' ) ); ?>" class="text-dark">India</a></li>
+						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-thailand/' ) ); ?>" class="text-dark">Thailand</a></li>
+						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-vietnam/' ) ); ?>" class="text-dark">Vietnam</a></li>
+						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-indonesia/' ) ); ?>" class="text-dark">Indonesia</a></li>
+						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-egypt/' ) ); ?>" class="text-dark">Egypt</a></li>
+						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-china/' ) ); ?>" class="text-dark">China</a></li>
+					</ul>
+					<p>
+						<a href="<?php echo esc_url( home_url( '/travel-vaccinations-by-destination/' ) ); ?>">
+							View all destinations &rarr;
+						</a>
+					</p>
+					
+
+				</div>
+				<div class="col-md-6">
+					<img
+						src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/travel-vaccinations-travel-health-clinics-in-the-uk.webp' ); ?>"
+						alt="Travel Vaccinations Travel Health Clinics in the UK"
+						class="w-100 mx-auto d-block"
+						style="max-width: 500px;"
+					>
+				</div>
+			</div>
+		</div>
+	</section>
+	
+	
 	<?php if (get_field('enable_destinations_section')) { ?>
 		<section class="pt-6 pb-5 bg-white">
 			<div class="container">
