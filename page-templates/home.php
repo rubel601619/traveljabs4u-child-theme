@@ -240,8 +240,8 @@
 				</div>
 				<div class="col-md-6">
 					<img
-						src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/travel-vaccinations-travel-health-clinics-in-the-uk.webp' ); ?>"
-						alt="Travel Vaccinations Travel Health Clinics in the UK"
+						src="<?php echo esc_url( get_stylesheet_directory_uri() . '/assets/img/check-vaccines-by-destination.jpg' ); ?>"
+						alt="Check Vaccines by Destination"
 						class="w-100 mx-auto d-block"
 						style="max-width: 500px;"
 					>
