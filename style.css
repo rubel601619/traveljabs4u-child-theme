@@ -72,3 +72,14 @@ This is the child theme for Pharmacy Mentor theme, generated with Generate Child
     background-clip: text;
     -webkit-background-clip: text;
 }
+
+
+.custom-gradient{
+    background: linear-gradient(45deg, #e9f5db, #d8e5f7) !important;
+    .accordion-button:not(.collapsed) {
+        color: black;
+        background: linear-gradient(45deg, #d8e5f7, #e9f5db);
+        box-shadow: none;
+    }
+}
+

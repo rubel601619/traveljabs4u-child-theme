@@ -219,10 +219,10 @@
 		<div class="container py-lg-5">
 			<div class="row g-3 align-items-center">
 				
-				<div class="col-md-6">
+				<div class="col-md-6 text-start">
 					<h2 class="custom-title">Check Vaccines by Destination</h2>
 					<p>Every country carries different health risks. Choose your destination to see the vaccines that may be recommended or required before you travel, along with malaria advice and other travel health guidance.</p>
-					<ul class="destination-links">
+					<ul class="text-start">
 						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-india-4/' ) ); ?>" class="text-dark">India</a></li>
 						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-thailand/' ) ); ?>" class="text-dark">Thailand</a></li>
 						<li><a href="<?php echo esc_url( home_url( '/destination/travel-vaccinations-for-vietnam/' ) ); ?>" class="text-dark">Vietnam</a></li>
@@ -347,7 +347,7 @@
 		<div class="container py-lg-5">
 			<div class="row g-3 justify-content-center">
 				
-				<div class="col-md-6 text-center">
+				<div class="col-lg-6 text-center">
 					<h2 class="custom-title">Find a Travel Clinic Near You</h2>
 					<p class="mt-3 mb-4">TravelJabs4U lists trusted travel vaccination clinics and travel health services across the UK. Browse clinics to check the vaccines they offer, view opening details and book your appointment.</p>
 					<p>
@@ -355,6 +355,149 @@
 							Browse All Clinics
 						</a>
 					</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="cleearfix py-5 custom-gradient" data-aos="fade-up" data-aos-duration="500" data-aos-offset="0">
+		<div class="container py-lg-5">
+			<div class="row g-3 justify-content-center">
+				
+				<div class="col-lg-8 text-start">
+					<h2 class="custom-title">Common Travel Vaccines</h2>
+					<p>Depending on your trip, the travel vaccines that may be discussed include:</p>
+					<ul class="d-grid gap-3 text-start">
+						<li><strong>Hepatitis A</strong> — linked to contaminated food and water; often considered for destinations outside Western Europe, North America and Australasia.</li>
+						<li><strong>Typhoid</strong> — often considered for travel to South Asia, Africa and parts of South America.</li>
+						<li><strong>Yellow Fever</strong> — a certificate may be required for entry to, or from, certain countries in Africa and South America; only given at registered yellow fever centres.</li>
+						<li><strong>Rabies</strong> — may be considered for longer trips, rural travel or likely contact with animals.</li>
+						<li><strong>Hepatitis B</strong> — may be considered for longer stays and higher-risk activities.</li>
+						<li><strong>Cholera</strong> — usually considered only in specific circumstances, such as humanitarian or disaster-relief travel.</li>
+						<li><strong>Tetanus, Diphtheria &amp; Polio</strong> — a booster is often reviewed before travel.</li>
+						<li><strong>Japanese Encephalitis</strong> — may be considered for longer or rural travel in parts of Asia.</li>
+					</ul>
+					<p>Your clinic will confirm which vaccines are appropriate for you based on your destination, itinerary and health history.</p>
+
+					<h2 class="custom-title my-4">How It Works</h2>
+					<ol class="d-grid gap-3">
+						<li><strong>Check your destination</strong> — see the vaccines that may be recommended or required for the countries you are visiting.</li>
+						<li><strong>Find a clinic</strong> — browse trusted travel health clinics and view prices.</li>
+						<li><strong>Book your appointment</strong> — arrange your travel health consultation, ideally at least four to six weeks before you travel.</li>
+					</ol>
+
+					<hr>
+
+					<h2 class="custom-title mb-4">Frequently Asked Questions</h2>
+					<div class="accordion" id="faqsection">
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+									<span>When should I get my travel vaccinations?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqsection">
+							<div class="accordion-body">
+								  <p>Try to seek travel-health advice at least four to six weeks before departure. Some vaccines require several doses or need time to provide protection. If you are travelling sooner, contact a travel-health professional because useful advice, vaccination or other preventive measures may still be available.</p>
+							</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button collapsed d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+									<span>How much do travel vaccinations cost in the UK?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqsection">
+								<div class="accordion-body">
+									 <p>Prices vary by vaccine and clinic. Some vaccines are available free on the NHS, while others are private and charged per dose. You can compare prices using the TravelJabs4U <a href="<?php echo esc_url( home_url( '/travel-vaccinations-prices/' ) ); ?>">travel vaccination price guide</a> before you book.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button collapsed d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse3" aria-expanded="false" aria-controls="collapse3">
+									<span>Which travel vaccines do I need?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapse3" class="accordion-collapse collapse" data-bs-parent="#faqsection">
+								<div class="accordion-body">
+									  <p>It depends on your destination, the length and type of your trip, and your medical history. Check the relevant destination page for the vaccines that may be recommended or required, then confirm with a travel-health professional.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button collapsed d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+									<span>Which travel vaccines are free on the NHS?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#faqsection">
+								<div class="accordion-body">
+									  <p>Some travel vaccines are usually free on the NHS, including hepatitis A, typhoid, cholera, and polio (given as part of the combined tetanus, diphtheria and polio vaccine). Others, such as yellow fever, rabies, hepatitis B and Japanese encephalitis, are normally private and charged for.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button collapsed d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+									<span>Do I need malaria tablets?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#faqsection">
+								<div class="accordion-body">
+									<p>Not every traveller needs antimalarial tablets. The need depends on the regions you are visiting, your itinerary and your health history, so it is assessed during a travel-health consultation alongside advice on avoiding mosquito bites.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button collapsed d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+									<span>How long do travel vaccinations last?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#faqsection">
+								<div class="accordion-body">
+									  <p>It depends on the vaccine. Some provide protection for a year or two, others for ten years or longer, and a few require booster doses. Your clinic can confirm how long your vaccines last and whether a booster is due.</p>
+								</div>
+							</div>
+						</div>
+						<div class="accordion-item">
+							<h3 class="accordion-header">
+								<button class="accordion-button collapsed d-flex align-items-center justify-content-between" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+									<span>Where can I get travel jabs near me?</span>
+									<span>
+										<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#222"><path d="M480-344 240-584l56-56 184 184 184-184 56 56-240 240Z"/></svg>
+									</span>
+								</button>
+							</h3>
+							<div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#faqsection">
+								<div class="accordion-body">
+									<p>Use the TravelJabs4U <a href="<?php echo esc_url( home_url( '/our-clinics/' ) ); ?>">clinic finder</a> to locate trusted travel vaccination clinics across the UK, check the vaccines they offer and book an appointment.</p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+					
 				</div>
 			</div>
 		</div>
