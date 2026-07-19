@@ -278,3 +278,93 @@ if ( file_exists( $schema_file ) ) {
     require_once $schema_file;
 }
 
+
+/*
+ * Featured Image column in admin list tables
+ * Adds an "Image" column (60px) before the title for posts, pages and the Clinic CPT.
+ */
+
+// Post types that should display the Image column.
+pmc_featured_image_column_post_types();
+
+function pmc_featured_image_column_post_types() {
+    return apply_filters( 'pmc_featured_image_column_post_types', [ 'post', 'page' ] );
+}
+
+// Register the column for each supported post type.
+add_action( 'admin_init', 'pmc_add_featured_image_column' );
+function pmc_add_featured_image_column() {
+    $post_types = pmc_featured_image_column_post_types();
+
+    foreach ( $post_types as $post_type ) {
+        // Posts and pages use the generic hooks; CPTs use the {post_type} variant.
+        if ( 'page' === $post_type ) {
+            add_filter( 'manage_pages_columns', 'pmc_featured_image_column_head' );
+            add_action( 'manage_pages_custom_column', 'pmc_featured_image_column_content', 10, 2 );
+        } elseif ( 'post' === $post_type ) {
+            add_filter( 'manage_posts_columns', 'pmc_featured_image_column_head' );
+            add_action( 'manage_posts_custom_column', 'pmc_featured_image_column_content', 10, 2 );
+        } else {
+            add_filter( "manage_{$post_type}_posts_columns", 'pmc_featured_image_column_head' );
+            add_action( "manage_{$post_type}_posts_custom_column", 'pmc_featured_image_column_content', 10, 2 );
+        }
+
+        // Remove core's default "Image" (thumbnail) column to avoid duplicates.
+        add_filter( "manage_{$post_type}_posts_columns", 'pmc_remove_core_thumbnail_column' );
+    }
+}
+
+// Strip the core-added "thumbnail" column if present.
+function pmc_remove_core_thumbnail_column( $columns ) {
+    unset( $columns['thumbnail'] );
+    return $columns;
+}
+
+// Insert the "Image" column right before the title column.
+function pmc_featured_image_column_head( $columns ) {
+    $new_columns = [];
+
+    foreach ( $columns as $key => $label ) {
+        if ( 'title' === $key ) {
+            $new_columns['pmc_featured_image'] = __( 'Image', 'pharmacy-mentor-child' );
+        }
+        $new_columns[ $key ] = $label;
+    }
+
+    // Ensure the column exists even if no title column was found.
+    if ( ! isset( $new_columns['pmc_featured_image'] ) ) {
+        $new_columns['pmc_featured_image'] = __( 'Image', 'pharmacy-mentor-child' );
+    }
+
+    return $new_columns;
+}
+
+// Render the featured image (or placeholder) inside a 60x60 container.
+function pmc_featured_image_column_content( $column_name, $post_id ) {
+    if ( 'pmc_featured_image' !== $column_name ) {
+        return;
+    }
+
+    if ( has_post_thumbnail( $post_id ) ) {
+        $image = get_the_post_thumbnail(
+            $post_id,
+            [ 50, 50 ],
+            [ 'style' => 'width:50px;height:50px;object-fit:cover;' ]
+        );
+        echo $image; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+    } else {
+        echo '<span aria-hidden="true" class="empty-image">—</span>';
+    }
+}
+
+// Enqueue the admin stylesheet for the featured image column.
+add_action( 'admin_enqueue_scripts', 'pmc_featured_image_column_admin_styles' );
+function pmc_featured_image_column_admin_styles() {
+    wp_enqueue_style(
+        'pmc-featured-image-column',
+        get_stylesheet_directory_uri() . '/assets/css/admin.css',
+        [],
+        wp_get_theme()->get( 'Version' )
+    );
+}
+
