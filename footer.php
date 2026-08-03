@@ -38,7 +38,9 @@
 	  </div>
 	  <div class="footerCopyright">
 			<div class="container">
-				&copy; Copyright <?php echo date('Y');?> <?= get_bloginfo( 'name' ); ?> | Website built by <a style="color: var(--main-color)" href="https://yuma-technology.co.uk/" target="_blank">Yuma Technology</a>
+				<div class="text-center">
+					&copy;  <?php echo date('Y');?> <?= get_bloginfo( 'name' ); ?> is Managed by <a href="https://averroeshealthcaregroup.co.uk/" style="color: var(--main-color)" target="_blank">Averroes Healthcare</a> | Powered by <a href="https://yuma-technology.co.uk/" target="_blank" style="color: var(--main-color)">Yuma Technology</a>.
+				</div>
 			</div>
 	  </div>
 	</footer>
