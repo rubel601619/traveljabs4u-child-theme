@@ -34,7 +34,17 @@
 					   	  <A href="<?php echo esc_url( get_permalink());?>" class="text-decoration-none text-dark vaccination-link bg-white">
 							<div class="ratio ratio-16x9">
 							<div class="bg-light overflow-hidden">
-								<img src="<?php echo get_the_post_thumbnail_url(); ?>" class="h-100 w-100 rounded-0" style="object-fit: cover;">  	
+
+								<?php 
+
+									$img_url = get_stylesheet_directory_uri() . '/assets/img/image-not-found.webp';
+									if(has_post_thumbnail()){
+										$img_url = get_the_post_thumbnail_url();
+									}
+								?>
+								
+								
+								<img src="<?php echo esc_url( $img_url ); ?>" class="h-100 w-100 rounded-0" style="object-fit: cover;">  	
 							</div>
 							</div>
 							<div class="p-3">
