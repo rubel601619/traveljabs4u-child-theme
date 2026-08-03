@@ -16,13 +16,16 @@
 		<div class="row g-3 g-lg-4 g-xxl-5">
 			<?php
 			  
+				$paged = ( get_query_var( 'paged' ) ) ? get_query_var( 'paged' ) : 1;
+
 				$args = array(
-				   'post_type' => 'post',
-				   'posts_per_page' => '15'
+				   'post_type'      => 'post',
+				   'posts_per_page' => '12',
+				   'paged'          => $paged,
 				 );
-				 
+
 				$the_query = new WP_Query( $args );
-				
+
 				// The Loop
 				if ( $the_query->have_posts() ) {
 				  while ( $the_query->have_posts() ) {
@@ -46,9 +49,20 @@
 				  <?php } else {
 				  echo '<div class="col-lg-12"><h2 style="text-align: center;">No posts are available right now. Please check back later!</h2></div>';
 			   }
+
+			   echo '<nav class="pagination">' . paginate_links( array(
+			       'base'    => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+			       'format'  => '?paged=%#%',
+			       'current' => max( 1, $paged ),
+			       'total'   => $the_query->max_num_pages,
+			       'mid_size'  => 2,
+			       'prev_text' => __( '&laquo; Previous', 'pharmacy-mentor-child' ),
+			       'next_text' => __( 'Next &raquo;', 'pharmacy-mentor-child' ),
+			   ) ) . '</nav>';
+
 			   /* Restore original Post Data */
 			   wp_reset_postdata();
-			  
+
 			  ?>
 		</div>
 	</div>

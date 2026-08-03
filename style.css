@@ -100,3 +100,62 @@ This is the child theme for Pharmacy Mentor theme, generated with Generate Child
     }
     
 }
+
+
+/* Pagination */
+
+.pagination,
+.nav-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    margin: 30px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.pagination .page-numbers,
+.nav-links .page-numbers {
+    display: inline-flex;
+    min-width: 40px;
+    height: 40px;
+    padding: 0 12px;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dee2e6;
+    border-radius: 200px;
+    background-color: #fff;
+    color: #1E73BE;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1;
+    text-decoration: none;
+    transition: background-color .25s ease-in-out, color .25s ease-in-out, border-color .25s ease-in-out;
+
+    &:hover {
+        background-color: #7ecb2a;
+        border-color: #7ecb2a;
+        color: #fff;
+    }
+
+    &.current,
+    &.current:hover {
+        background-color: #7ecb2a;
+        border-color: #7ecb2a;
+        color: #fff;
+        pointer-events: none;
+    }
+
+    &.dots {
+        border: none;
+        background: transparent;
+        color: #6c757d;
+        pointer-events: none;
+    }
+}
+.pagination .nav-links > a.page-numbers:not(:last-child), .pagination .nav-links > a:not(:last-child), .pagination .nav-links > span.page-numbers:not(:last-child), .pagination .nav-links > span:not(:last-child), .pagination ul li.page-numbers:not(:last-child), .pagination ul li:not(:last-child), .pagination > a.page-numbers:not(:last-child), .pagination > a:not(:last-child), .pagination > span.page-numbers:not(:last-child), .pagination > span:not(:last-child) {
+    margin-right: 0.2rem;
+}
