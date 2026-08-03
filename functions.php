@@ -16,6 +16,21 @@ function pharmacy_mentor_child_enqueue_styles() {
     );
 }
 
+// Load single-style.css on single post views (blog details, pages, CPTs).
+add_action( 'wp_enqueue_scripts', 'pmc_enqueue_single_styles' );
+function pmc_enqueue_single_styles() {
+    if ( ! is_singular() ) {
+        return;
+    }
+
+    wp_enqueue_style(
+        'pmc-single-style',
+        get_stylesheet_directory_uri() . '/assets/css/single-style.css',
+        [ 'child-style' ],
+        wp_get_theme()->get( 'Version' )
+    );
+}
+
 add_filter( 'rest_destination_query', function( $args, $request ) {
     if ( ! empty( $request['search'] ) ) {
         $args['search_columns'] = [ 'post_title' ];
